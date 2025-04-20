@@ -11,14 +11,10 @@ import (
 )
 
 func NewClient(ctx context.Context, tracingInterceptor interceptor.ClientInterceptor, metricsHandler client.MetricsHandler, logger *instrument.ZerologAdapter) (client.Client, error) {
-	// Get the key and cert from your env or local machine
-	clientKeyPath := "/Users/ankitnayan/Desktop/temporal-certs/temporal-ca.key"
-	clientCertPath := "/Users/ankitnayan/Desktop/temporal-certs/temporal-ca.pem"
 
-	// Specify the host and port of your Temporal Cloud Namespace
-	// Host and port format: namespace.unique_id.tmprl.cloud:port
 	hostPort := "localhost:7233"
 	namespace := "default"
+
 	if os.Getenv("TEMPORAL_NAMESPACE") != "" {
 		namespace = os.Getenv("TEMPORAL_NAMESPACE")
 	}
@@ -26,24 +22,29 @@ func NewClient(ctx context.Context, tracingInterceptor interceptor.ClientInterce
 		hostPort = os.Getenv("TEMPORAL_HOST_PORT")
 	}
 
-	// Use the crypto/tls package to create a cert object
-	cert, err := tls.LoadX509KeyPair(clientCertPath, clientKeyPath)
-	if err != nil {
-		logger.Error("Unable to load cert and key pair", "error", err)
-		return nil, err
-	}
-
-	// Add the cert to the tls certificates in the ConnectionOptions of the Client
-	temporalClient, err := client.Dial(client.Options{
-		HostPort:  hostPort,
-		Namespace: namespace,
-		ConnectionOptions: client.ConnectionOptions{
-			TLS: &tls.Config{Certificates: []tls.Certificate{cert}},
-		},
+	options := client.Options{
+		HostPort:       hostPort,
+		Namespace:      namespace,
 		Interceptors:   []interceptor.ClientInterceptor{tracingInterceptor},
 		MetricsHandler: metricsHandler,
 		Logger:         logger,
-	})
+	}
+
+	certPath := os.Getenv("CERT_PATH")
+	keyPath := os.Getenv("KEY_PATH")
+
+	if certPath != "" && keyPath != "" {
+		// Use the crypto/tls package to create a cert object
+		cert, err := tls.LoadX509KeyPair(certPath, keyPath)
+		if err != nil {
+			logger.Error("Unable to load cert and key pair", "error", err)
+			return nil, err
+		}
+		options.ConnectionOptions.TLS = &tls.Config{Certificates: []tls.Certificate{cert}}
+	}
+
+	// Add the cert to the tls certificates in the ConnectionOptions of the Client
+	temporalClient, err := client.Dial(options)
 	if err != nil {
 		logger.Error("Unable to connect to Temporal Cloud", "error", err)
 		return nil, err

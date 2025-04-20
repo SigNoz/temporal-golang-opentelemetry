@@ -11,5 +11,10 @@ OTEL_SERVICE_NAME='temporal-client' OTEL_EXPORTER_OTLP_ENDPOINT='ingest.<region>
 
 Additionally envs to connect to your temporal namespace in the cloud account. You can leave these envs as unset if you are using a local temporal setup with `default` namespace
 
+```
 TEMPORAL_HOST_PORT='<namespace>.<account_id>.tmprl.cloud:7233'
 TEMPORAL_NAMESPACE='<namespace>.<account_id>'
+
+CERT_PATH='/path/to/ca.pem'
+KEY_PATH='/path/to/ca.key'
+```
