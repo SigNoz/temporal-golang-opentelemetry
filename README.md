@@ -1,4 +1,5 @@
 # Steps to run
+
 1. Run a local temporal service or signup for a cloud account
 
 Read about connecting to the account at https://docs.temporal.io/develop/go/temporal-clients
@@ -27,3 +28,6 @@ OTEL_SERVICE_NAME='temporal-worker' OTEL_EXPORTER_OTLP_ENDPOINT='ingest.<region>
 OTEL_SERVICE_NAME='temporal-client' OTEL_EXPORTER_OTLP_ENDPOINT='ingest.<region>.signoz.cloud' OTEL_EXPORTER_OTLP_HEADERS="signoz-ingestion-key=<signoz-ingestion-key>" go run starter/main.go
 ```
 
+If you want to send the metrics and traces to your local otelcollector, you need not set envs `OTEL_EXPORTER_OTLP_ENDPOINT` and `OTEL_EXPORTER_OTLP_HEADERS`. The default otlp endpoint is `localhost:4317`
+
+`intrument/zerolog_apapter.go` wraps zerolog to implement Temporal's log.Logger interface and outputs to stdout. You can configure details at `NewZerologAdapter()` method in the same file. This zerolog logger is used at worker and client code at `client.Options`
