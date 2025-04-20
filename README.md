@@ -1,15 +1,13 @@
-### Steps to run this sample:
-1) Run a Temporal Service (self-hosted or cloud account)
-2) Run the following command to start the worker
-```
-OTEL_SERVICE_NAME='temporal-worker' OTEL_EXPORTER_OTLP_ENDPOINT='ingest.<region>.signoz.cloud' OTEL_EXPORTER_OTLP_HEADERS="signoz-ingestion-key=<signoz-ingestion-key>" go run worker/main.go
-```
-3) Run the following command to start the example
-```
-OTEL_SERVICE_NAME='temporal-client' OTEL_EXPORTER_OTLP_ENDPOINT='ingest.<region>.signoz.cloud' OTEL_EXPORTER_OTLP_HEADERS="signoz-ingestion-key=<signoz-ingestion-key>" go run starter/main.go
-```
+# Steps to run
+1. Run a local temporal service or signup for a cloud account
 
-Additionally envs to connect to your temporal namespace in the cloud account. You can leave these envs as unset if you are using a local temporal setup with `default` namespace
+Read about connecting to the account at https://docs.temporal.io/develop/go/temporal-clients
+
+We use a very similar setup for connecting to temporal in this repo. Most of you would already have this connection implemented in your application.
+
+We need to set envs to connect to your temporal namespace in the cloud account. You can leave these envs as unset if you are using a local temporal setup.
+
+Default hostPort is `localhost:7233` and namespace is `default`
 
 ```
 TEMPORAL_HOST_PORT='<namespace>.<account_id>.tmprl.cloud:7233'
@@ -18,3 +16,14 @@ TEMPORAL_NAMESPACE='<namespace>.<account_id>'
 CERT_PATH='/path/to/ca.pem'
 KEY_PATH='/path/to/ca.key'
 ```
+
+2. Run the following command to start the worker
+```
+OTEL_SERVICE_NAME='temporal-worker' OTEL_EXPORTER_OTLP_ENDPOINT='ingest.<region>.signoz.cloud' OTEL_EXPORTER_OTLP_HEADERS="signoz-ingestion-key=<signoz-ingestion-key>" go run worker/main.go
+```
+
+3. Run the following command to start the example
+```
+OTEL_SERVICE_NAME='temporal-client' OTEL_EXPORTER_OTLP_ENDPOINT='ingest.<region>.signoz.cloud' OTEL_EXPORTER_OTLP_HEADERS="signoz-ingestion-key=<signoz-ingestion-key>" go run starter/main.go
+```
+
