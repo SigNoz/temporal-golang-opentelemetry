@@ -3,8 +3,9 @@ package helloworld
 import (
 	"context"
 	"crypto/tls"
+	"os"
 
-	"github.com/temporalio/samples-go/helloworld/instrument"
+	"github.com/SigNoz/temporal-opentelemetry-instrumentation/instrument"
 	"go.temporal.io/sdk/client"
 	"go.temporal.io/sdk/interceptor"
 )
@@ -16,8 +17,14 @@ func NewClient(ctx context.Context, tracingInterceptor interceptor.ClientInterce
 
 	// Specify the host and port of your Temporal Cloud Namespace
 	// Host and port format: namespace.unique_id.tmprl.cloud:port
-	hostPort := "integration.sdr7x.tmprl.cloud:7233"
-	namespace := "integration.sdr7x"
+	hostPort := "localhost:7233"
+	namespace := "default"
+	if os.Getenv("TEMPORAL_NAMESPACE") != "" {
+		namespace = os.Getenv("TEMPORAL_NAMESPACE")
+	}
+	if os.Getenv("TEMPORAL_HOST_PORT") != "" {
+		hostPort = os.Getenv("TEMPORAL_HOST_PORT")
+	}
 
 	// Use the crypto/tls package to create a cert object
 	cert, err := tls.LoadX509KeyPair(clientCertPath, clientKeyPath)

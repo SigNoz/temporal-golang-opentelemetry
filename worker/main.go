@@ -5,8 +5,8 @@ import (
 
 	"go.temporal.io/sdk/worker"
 
-	"github.com/temporalio/samples-go/helloworld"
-	"github.com/temporalio/samples-go/helloworld/instrument"
+	"github.com/SigNoz/temporal-opentelemetry-instrumentation/helloworld"
+	"github.com/SigNoz/temporal-opentelemetry-instrumentation/instrument"
 )
 
 func main() {

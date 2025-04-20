@@ -1,10 +1,10 @@
 ### Steps to run this sample:
-1) Run a [Temporal service](https://github.com/temporalio/samples-go/tree/main/#how-to-use).
+1) Run a Temporal Service (self-hosted or cloud account)
 2) Run the following command to start the worker
 ```
-go run helloworld/worker/main.go
+OTEL_SERVICE_NAME='temporal-worker' OTEL_EXPORTER_OTLP_ENDPOINT='ingest.<region>.signoz.cloud' OTEL_EXPORTER_OTLP_HEADERS="signoz-ingestion-key=<signoz-ingestion-key>" go run worker/main.go
 ```
 3) Run the following command to start the example
 ```
-go run helloworld/starter/main.go
+OTEL_SERVICE_NAME='temporal-client' OTEL_EXPORTER_OTLP_ENDPOINT='ingest.<region>.signoz.cloud' OTEL_EXPORTER_OTLP_HEADERS="signoz-ingestion-key=<signoz-ingestion-key>" go run starter/main.go
 ```

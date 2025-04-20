@@ -11,9 +11,9 @@ import (
 	"github.com/google/uuid"
 	"go.temporal.io/sdk/client"
 
+	"github.com/SigNoz/temporal-opentelemetry-instrumentation/helloworld"
+	"github.com/SigNoz/temporal-opentelemetry-instrumentation/instrument"
 	"github.com/rs/zerolog/log"
-	"github.com/temporalio/samples-go/helloworld"
-	"github.com/temporalio/samples-go/helloworld/instrument"
 )
 
 func main() {
