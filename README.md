@@ -11,10 +11,9 @@ We need to set envs to connect to your temporal namespace in the cloud account. 
 Default hostPort is `localhost:7233` and namespace is `default`
 
 ```
-TEMPORAL_HOST_PORT='<namespace>.<account_id>.tmprl.cloud:7233'
-TEMPORAL_NAMESPACE='<namespace>.<account_id>'
-
-CERT_PATH='/path/to/ca.pem'
+export TEMPORAL_HOST_PORT='<namespace>.<account_id>.tmprl.cloud:7233' \
+TEMPORAL_NAMESPACE='<namespace>.<account_id>' \
+CERT_PATH='/path/to/ca.pem' \
 KEY_PATH='/path/to/ca.key'
 ```
 
