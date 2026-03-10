@@ -1,4 +1,4 @@
-module github.com/SigNoz/temporal-opentelemetry-instrumentation
+module github.com/SigNoz/temporal-golang-opentelemetry
 
 go 1.24.1
 

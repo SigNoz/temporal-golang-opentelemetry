@@ -5,7 +5,7 @@ import (
 	"crypto/tls"
 	"os"
 
-	"github.com/SigNoz/temporal-opentelemetry-instrumentation/instrument"
+	"github.com/SigNoz/temporal-golang-opentelemetry/instrument"
 	"go.temporal.io/sdk/client"
 	"go.temporal.io/sdk/interceptor"
 )

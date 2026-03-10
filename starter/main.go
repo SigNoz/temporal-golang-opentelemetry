@@ -11,8 +11,8 @@ import (
 	"github.com/google/uuid"
 	"go.temporal.io/sdk/client"
 
-	"github.com/SigNoz/temporal-opentelemetry-instrumentation/helloworld"
-	"github.com/SigNoz/temporal-opentelemetry-instrumentation/instrument"
+	"github.com/SigNoz/temporal-golang-opentelemetry/helloworld"
+	"github.com/SigNoz/temporal-golang-opentelemetry/instrument"
 	"github.com/rs/zerolog/log"
 )
 
